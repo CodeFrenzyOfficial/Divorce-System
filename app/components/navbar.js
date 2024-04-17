@@ -10,14 +10,14 @@ const Navbar = () => {
   return (
     <div
       className="grid sticky top-0 lg:top-3 place-items-center
-     z-[100]"
+     z-[100] rounded-lg"
     >
-      <div className="w-full lg:w-[95%] bg-gray-100/30 backdrop-blur-2xl">
-        <nav className="container left-0 flex flex-wrap items-center justify-between p-5 mx-auto lg:justify-between xl:px-0 m-1">
+      <div className="w-full lg:w-[95%] bg-gray-400/20 backdrop-blur-2xl rounded-lg">
+        <nav className="container left-0 flex flex-wrap items-center justify-between p-5 mx-auto lg:justify-between xl:px-0 m-1 rounded-lg">
           {/* Logo  */}
           <div className="flex flex-wrap items-center justify-between w-full lg:w-auto relative">
             <Link href="/">
-              <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
+              <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500">
                 <span>
                   <img src="/img/logo.webp" alt="N" className="w-60" />
                 </span>
@@ -26,7 +26,7 @@ const Navbar = () => {
 
             <button
               onClick={() => setOpen(!isOpen)}
-              className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700 "
+              className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none"
             >
               <svg
                 className="w-6 h-6 fill-current"
@@ -50,7 +50,9 @@ const Navbar = () => {
 
             <div
               className={`absolute flex flex-wrap w-full my-5 lg:hidden top-20 bg-gray-600 left-0 transition-all duration-300  z-20 ${
-                isOpen ? "h-72 opacity-100 pointer-events-auto" : "h-0 opacity-0 pointer-events-none"
+                isOpen
+                  ? "h-72 opacity-100 pointer-events-auto"
+                  : "h-0 opacity-0 pointer-events-none"
               }`}
             >
               <>
@@ -88,7 +90,7 @@ const Navbar = () => {
                 <li className="mr-3 nav__item" key={index}>
                   <Link
                     href="/"
-                    className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
+                    className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500"
                   >
                     {menu}
                   </Link>
@@ -99,13 +101,11 @@ const Navbar = () => {
 
           <div className="hidden mr-3 space-x-4 lg:flex nav__item">
             <Link
-              href="/"
-              className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
+              href={"/"}
+              className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md transition-all duration-300 hover:opacity-80 shadow-lg shadow-black/30"
             >
               Get Started
             </Link>
-
-            {/* <ThemeChanger /> */}
           </div>
         </nav>
       </div>

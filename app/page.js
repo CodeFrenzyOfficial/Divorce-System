@@ -4,13 +4,14 @@ import SectionTitle from "@/app/components/sectionTitle";
 
 import { benefitOne, benefitTwo } from "@/app/components/data";
 import Video from "@/app/components/video";
-import Benefits from "@/app/components/benefits";
 import Footer from "@/app/components/footer";
 import Testimonials from "@/app/components/testimonials";
 import Cta from "@/app/components/cta";
 import Faq from "@/app/components/faq";
 import PopupWidget from "@/app/components/popupWidget";
 import Hero from "./components/hero";
+import GetYourDivorceForm from "./components/GetYourDivorceForm";
+import CommittmentToCustomers from "./components/CommittmentToCustomers";
 
 export default function Home() {
   return (
@@ -28,8 +29,10 @@ export default function Home() {
       
       <Hero />
 
-      <Benefits data={benefitOne} />
-      <Benefits imgPos="right" data={benefitTwo} />
+      <GetYourDivorceForm />
+
+      <CommittmentToCustomers />
+
       <SectionTitle
         pretitle="Watch a video"
         title="Learn how to fullfil your needs"
