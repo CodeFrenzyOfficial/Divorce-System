@@ -23,3 +23,17 @@
   transform: rotate(90deg);
   z-index: -1;
 }
+
+.info ul li:first-child::before {
+
+  content: "";
+    position: absolute;
+    left: -5px;
+    top: 22px;
+    background-color: #106cc8;
+    border: 1px solid #106cc8;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    z-index: 999;
+}
