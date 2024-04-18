@@ -2,6 +2,7 @@ import Image from "next/image";
 import Container from "./container";
 import heroImg from "@/public/img/hero.png";
 import Link from "next/link";
+import HomeForm from "./HomeForm";
 
 const Hero = () => {
   return (
@@ -30,24 +31,14 @@ const Hero = () => {
         </div>
 
         {/* Right Form/Image */}
-        <div className="flex items-center justify-center w-full lg:w-1/2">
-          <div className="">
-            <Image
-              src={heroImg}
-              width="616"
-              height="617"
-              className={"object-cover"}
-              alt="Hero Illustration"
-              loading="eager"
-              placeholder="blur"
-            />
-          </div>
+        <div className="w-full lg:w-1/2 grid place-items-center">
+          <HomeForm />
         </div>
       </Container>
 
       {/* Large Screen Steps */}
       <Container className={"hidden lg:block"}>
-        <div className="w-full text-center">
+        <div className="w-full text-center" id="steps">
           <h2 className="text-black font-semibold text-4xl">
             Divorce made easy using our 4-step solution
           </h2>

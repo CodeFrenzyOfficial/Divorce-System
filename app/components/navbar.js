@@ -1,11 +1,18 @@
 "use client";
-
+import { IoMdArrowDropdown } from "react-icons/io";
 import Link from "next/link";
 import { useState } from "react";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
-  const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
+  const [dropdownIsOpen, setDropdown] = useState(false)
+  const navigation = [
+    "Divorce Services",
+    "Features",
+    "Pricing",
+    "Company",
+    "Blog",
+  ];
 
   return (
     <div
@@ -49,29 +56,27 @@ const Navbar = () => {
             </button>
 
             <div
-              className={`absolute flex flex-wrap w-full my-5 lg:hidden top-20 bg-gray-600 left-0 transition-all duration-300  z-20 ${
-                isOpen
-                  ? "h-72 opacity-100 pointer-events-auto"
-                  : "h-0 opacity-0 pointer-events-none"
-              }`}
+              className={`absolute flex flex-wrap w-full my-5 lg:hidden top-20 bg-gray-600 left-0 transition-all duration-300  z-20 ${isOpen
+                ? "h-72 opacity-100 pointer-events-auto"
+                : "h-0 opacity-0 pointer-events-none"
+                }`}
             >
-              <>
-                {navigation.map((item, index) => (
-                  <Link
-                    key={index}
-                    href="/"
-                    className="w-full px-4 py-2 text-white hover:bg-white hover:text-black transition-all duration-200 text-center"
-                  >
-                    {item}
-                  </Link>
-                ))}
+              {navigation.map((item, index) => (
                 <Link
+                  key={index}
                   href="/"
-                  className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5 transition-all duration-200 hover:bg-opacity-80"
+                  className="w-full px-4 py-2 text-white hover:bg-white hover:text-black transition-all duration-200 text-center"
                 >
-                  Get Started
+                  {item}
                 </Link>
-              </>
+              ))}
+
+              <Link
+                href="/"
+                className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5 transition-all duration-200 hover:bg-opacity-80"
+              >
+                Get Started
+              </Link>
             </div>
 
             {/* closing div */}
@@ -85,18 +90,38 @@ const Navbar = () => {
 
           {/* menu  */}
           <div className="hidden text-center lg:flex lg:items-center">
-            <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
+            <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex relative">
               {navigation.map((menu, index) => (
-                <li className="mr-3 nav__item" key={index}>
+                <li className="mr-3 nav__item" key={index}
+                  onClick={menu.includes("Divorce Services") ? () => { setDropdown(!dropdownIsOpen) } : null}>
                   <Link
                     href="/"
-                    className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500"
+                    className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 cursor-pointer"
                   >
-                    {menu}
+                    <div className="flex items-center gap-2">
+                      {menu}
+                      {menu.includes("Divorce Services") && (
+                        <IoMdArrowDropdown className="text-black" />
+                      )}
+                    </div>
                   </Link>
                 </li>
               ))}
             </ul>
+
+            {/* DropDown */}
+            <div className={`hidden lg:block absolute top-32 left-1/3 w-40  ${dropdownIsOpen ? 'h-40' : 'h-0'} bg-black/90 text-white transition-all duration-200 z-20 overflow-hidden`}>
+              <ul className="">
+                <Link href={'#steps'} className="py-2 w-full transition-all duration-200 hover:bg-white hover:text-black cursor-pointer">How It Works</Link>
+                <Link href={''} className="py-2 w-full transition-all duration-200 hover:bg-white hover:text-black cursor-pointer" >Why Us?</Link>
+                <li className="py-2 w-full transition-all duration-200 hover:bg-white hover:text-black cursor-pointer">How It Works</li>
+                <li className="py-2 w-full transition-all duration-200 hover:bg-white hover:text-black cursor-pointer">How It Works</li>
+              </ul>
+            </div>
+            {
+              dropdownIsOpen && <div className="fixed top-0 left-0 w-full h-screen z-10"
+                onClick={() => setDropdown(false)}></div>
+            }
           </div>
 
           <div className="hidden mr-3 space-x-4 lg:flex nav__item">

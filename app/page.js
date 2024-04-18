@@ -31,7 +31,7 @@ export default function Home() {
 
       <GetYourDivorceForm />
 
-      <CommittmentToCustomers />
+      {/* <CommittmentToCustomers /> */}
 
       <SectionTitle
         pretitle="Watch a video"
