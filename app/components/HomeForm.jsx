@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function HomeForm() {
     return (
@@ -59,11 +60,11 @@ export default function HomeForm() {
                 />
             </div>
 
-            <a href="#">
+            <Link href="/step-form">
                 <button className="w-full bg-[#ffc137] py-[16px] px-[10px] border-[1px] rounded-[5px] mb-[10px] outline-none transition-all duration-200 hover:focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)] ">
                     Check Eligibility
                 </button>
-            </a>
+            </Link>
 
             <span className="text-[14px] text-gray-600 w-full">By clicking “Check Eligibility”
                 you agree to the <a href="#" className="font-bold">Terms of Service</a></span>

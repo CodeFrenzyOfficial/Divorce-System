@@ -1,15 +1,14 @@
-import Image from "next/image";
 import Container from "./container";
-import heroImg from "@/public/img/hero.png";
 import Link from "next/link";
 import HomeForm from "./HomeForm";
+import Button from "./Button";
 
 const Hero = () => {
   return (
-    <>
+    <div>
       <Container className="flex flex-wrap">
-        <div className="flex items-center w-full lg:w-1/2">
-          <div className="max-w-2xl mb-8">
+        <div className="flex items-center w-full lg:w-1/2 xl:pl-10">
+          <div className="mb-8">
             <h1 className="text-5xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">
               Start Your Divorce Online Without Lawyer Fees
             </h1>
@@ -20,12 +19,7 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
-              <Link
-                href={'/'}
-                className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md transition-all duration-300 hover:opacity-80 shadow-lg shadow-black/30"
-              >
-                Get Started
-              </Link>
+              <Button innerText={'Get Started'} link={'/'} />
             </div>
           </div>
         </div>
@@ -84,13 +78,8 @@ const Hero = () => {
             <h2 className="relative -left-5">file with court</h2>
           </div>
 
-          <div className="my-20">
-            <Link
-              href={'/'}
-              className="px-20 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md transition-all duration-300 hover:opacity-80 shadow-lg shadow-black/30"
-            >
-              Start Now
-            </Link>
+          <div className="grid place-items-center my-20">
+            <Button innerText={'Start Now'} link={'/'} />
           </div>
         </div>
       </Container>
@@ -134,7 +123,7 @@ const Hero = () => {
           </div>
         </div>
       </Container>
-    </>
+    </div>
   );
 }
 

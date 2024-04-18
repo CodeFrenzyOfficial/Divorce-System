@@ -34,13 +34,53 @@
 .info ul li:first-child::before {
 
   content: "";
-    position: absolute;
-    left: -5px;
-    top: 22px;
-    background-color: #106cc8;
-    border: 1px solid #106cc8;
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    z-index: 999;
+  position: absolute;
+  left: -5px;
+  top: 22px;
+  background-color: #106cc8;
+  border: 1px solid #106cc8;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  z-index: 999;
+}
+
+
+.why-us-section {
+  background-image: url('/img/whyus-section-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.whyus-list-li {
+  position: relative;
+  left: 20px;
+  padding-right: 20px;
+}
+
+.whyus-list-li::before {
+  top: 0%;
+  left: -25px;
+  position: absolute;
+  content: "!";
+  background: #ff8821;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+
+.disclaimer {
+  background-image: url('../public/img/disclaimer.jpg');
+
+}
+
+.gradient {
+  background: #3E5151;
+  background: -webkit-linear-gradient(to right bottom, #DECBA4, #3E5151);
+  background: linear-gradient(to right bottom, #DECBA4, #3E5151);
 }
