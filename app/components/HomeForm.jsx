@@ -37,6 +37,7 @@ const HomeForm = () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
+        console.log(response.data);
         setUser(response.data);
         router.push("/step-form");
       })

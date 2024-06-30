@@ -7,11 +7,15 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaPhone } from "react-icons/fa6";
 import { CiGlobe } from "react-icons/ci";
 import Footer from "../components/Footer";
-import RightSection from "./RightSection";
 import LeftSection from "./LeftSection";
+import RightSection from "./RightSection";
 
 export default function page() {
   const [activeStep, setActiveStep] = useState(1);
+
+  const onNextStep = () => {
+    setActiveStep((currentStep) => currentStep + 1);
+  };
 
   const changeStep = (step) => {
     setActiveStep(step);
@@ -81,7 +85,7 @@ export default function page() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-[25px] lg:mt-[50px]  gap-[60px]">
           <div className="col-span-2 px-[20px] lg:px-[30px] border-[1px]">
-            <LeftSection activeStep={activeStep} />
+            <LeftSection activeStep={activeStep} onNextStep={onNextStep} />
           </div>
           <RightSection changeStep={changeStep} activeStep={activeStep} />
         </div>
