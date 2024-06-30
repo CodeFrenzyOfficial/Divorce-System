@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   background-color: #ffffff;
 }
@@ -21,18 +20,13 @@
   position: absolute;
   height: 3px;
   width: 40px;
-  background: url('/img/arrow.webp') no-repeat center right;
+  background: url("/img/arrow.webp") no-repeat center right;
   left: 12px;
   top: 75px;
   transform: rotate(90deg);
   z-index: -1;
-
 }
-
-
-
-.info ul li:first-child::before {
-
+.info ul li.active::before {
   content: "";
   position: absolute;
   left: -5px;
@@ -45,9 +39,8 @@
   z-index: 999;
 }
 
-
 .why-us-section {
-  background-image: url('/img/whyus-section-bg.jpg');
+  background-image: url("/img/whyus-section-bg.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -75,12 +68,11 @@
 }
 
 .disclaimer {
-  background-image: url('../public/img/disclaimer.jpg');
-
+  background-image: url("../public/img/disclaimer.jpg");
 }
 
 .gradient {
-  background: #3E5151;
-  background: -webkit-linear-gradient(to right bottom, #DECBA4, #3E5151);
-  background: linear-gradient(to right bottom, #DECBA4, #3E5151);
+  background: #3e5151;
+  background: -webkit-linear-gradient(to right bottom, #decba4, #3e5151);
+  background: linear-gradient(to right bottom, #decba4, #3e5151);
 }

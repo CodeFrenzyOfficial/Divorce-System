@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 import { TbDiscountCheckFilled } from "react-icons/tb";
 import { TiTick } from "react-icons/ti";
@@ -6,9 +7,16 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaPhone } from "react-icons/fa6";
 import { CiGlobe } from "react-icons/ci";
 import Footer from "../components/Footer";
-
+import RightSection from "./RightSection";
+import LeftSection from "./LeftSection";
 
 export default function page() {
+  const [activeStep, setActiveStep] = useState(1);
+
+  const changeStep = (step) => {
+    setActiveStep(step);
+  };
+
   return (
     <>
       <div className="nav border-b-[1px] md:shadow-none	 shadow-[0_2px_4px_rgba(0,0,0,.200238)] ">
@@ -22,7 +30,7 @@ export default function page() {
       </div>
 
       <div className="max-w-[1420px] mx-auto pb-[20px] px-[15px]">
-        <div className="hidden lg:grid grid-cols-4 border-[1px] ">
+        <div className="hidden lg:grid grid-cols-4 border-[1px] mt-10 ">
           <div className="col-span-1 text-center p-[10px] border-r-[1px]">
             <p className="text-[18px] flex justify-center items-center ">
               <TiTick className="text-[#3895f2] text-[20px]  lg:text-[30px]" />
@@ -73,176 +81,9 @@ export default function page() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-[25px] lg:mt-[50px]  gap-[60px]">
           <div className="col-span-2 px-[20px] lg:px-[30px] border-[1px]">
-            <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-[15px] lg:gap-[15px]">
-              <div className="col-span-2 my-[15px]">
-                <h1 className="text-[20px] md:text-[25px] lg:text-[30px]">
-                  Information about yourself
-                </h1>
-              </div>
-
-              <div className="col-span-2 lg:col-span-1 my-[15px]">
-                <p className="text-[14px] lg:text-[16px] mr-[10px] ">
-                  * Can you and your spouse agree to the division of property,
-                  assets and all child related issues?
-                </p>
-              </div>
-
-              <div className="col-span-2 lg:col-span-1">
-                <span className="text-[18px] mr-[20px]">
-                  <input className="mr-[5px]" type="radio" />
-                  Yes
-                </span>
-
-                <span className="text-[18px]">
-                  <input className="mr-[5px]" type="radio" />
-                  No
-                </span>
-              </div>
-
-              <div className="col-span-2 lg:col-span-1">
-                <p className="text-[14px] lg:text-[16px] mr-[20px]">
-                  * First Name
-                </p>
-              </div>
-
-              <div className="col-span-2 lg:col-span-1">
-                <input
-                  className="w-full py-[16px] px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder="First Name"
-                />
-              </div>
-
-              <div className="col-span-2 lg:col-span-1">
-                <p className="text-[14px] lg:text-[16px] mr-[20px]">
-                  * Middle Name
-                </p>
-              </div>
-
-              <div className="col-span-2 lg:col-span-1">
-                <input
-                  className="w-full py-[16px] px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder="Middle Name"
-                />
-              </div>
-
-              <div className="col-span-2 lg:col-span-1">
-                <p className="text-[14px] lg:text-[16px] mr-[20px]">
-                  * Last Name
-                </p>
-              </div>
-
-              <div className="col-span-2 lg:col-span-1">
-                <input
-                  className="w-full py-[16px] px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder="Last Name"
-                />
-              </div>
-
-              <div className="col-span-2 lg:col-span-1">
-                <p className="text-[14px] lg:text-[16px] mr-[20px]">
-                  * Email Address
-                </p>
-              </div>
-
-              <div className="col-span-1">
-                <input
-                  className="w-full py-[16px] px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
-                  type="email"
-                  name=""
-                  id=""
-                  placeholder="Email Address"
-                />
-              </div>
-
-              <div className="col-span-2 grid place-items-center">
-                <a className="" href="#">
-                  <button className=" w-full px-[30px] mt-[25px] lg:mt-[50px] font-semibold text-center text-white bg-[#106cc8] py-[16px]  border-[1px] rounded-[5px] mb-[10px] outline-none transition-all duration-200 hover:focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)] ">
-                    Save & Continue
-                  </button>
-                </a>
-              </div>
-            </div>
+            <LeftSection activeStep={activeStep} />
           </div>
-
-          <div className="hidden lg:grid col-span-1 info ">
-            <ul>
-              <li className="text-[#106cc8] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#106cc8] ">
-                <a href="#">Information About Yourself</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Your Current Place Of Residence</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Children And Pregnancy</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Properties And Debts</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Filing Party</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Current Home</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Community Property</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Community Debts</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Other Income Sources</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Money Owed</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Military Information</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Summary</a>
-              </li>
-              <li className="text-[#8e8e8e80] relative pl-[20px] py-[15px] border-l-[1px] border-l-[#8e8e8e80] ">
-                <a href="#">Processing Fee</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="lg:grid grid-cols-4">
-          <div className="col-span-1 text-center p-[10px] border-b-[1px]">
-            <p className="text-[14px] flex justify-center items-center ">
-              <TiTick className="text-[#3895f2] text-[18px]  lg:text-[30px]" />
-              Step 1: Qualify for divorce
-            </p>
-          </div>
-
-          <div className="col-span-1 text-center p-[10px] border-b-[1px]">
-            <p className=" text-[14px] lg:text-[18px]">
-              Step 2: Provide your details
-            </p>
-          </div>
-
-          <div className="col-span-1 text-center p-[10px] border-b-[1px]">
-            <p className="text-[14px] lg:text-[18px]">
-              Step 3: Get your papers
-            </p>
-          </div>
-
-          <div className="col-span-1 text-center p-[10px] border-b-[1px]">
-            <p className="text-[14px] lg:text-[18px]">
-              Step 4: File for divorce
-            </p>
-          </div>
+          <RightSection changeStep={changeStep} activeStep={activeStep} />
         </div>
 
         <div className="nav border-b-[1px] mt-[50px]">
@@ -290,7 +131,6 @@ export default function page() {
               <CiGlobe className="hidden lg:block text-[#3895f2] mr-[20px] text-[40px]" />
             </div>
             <div>
-              {" "}
               <p className="text-[14px]  text-start  ">Website:</p>
               <p className="text-[14px]  text-start  ">OnlineDivorce.com</p>
             </div>
