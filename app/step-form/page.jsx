@@ -84,7 +84,7 @@ export default function page() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-[25px] lg:mt-[50px]  gap-[60px]">
-          <div className="col-span-2 px-[20px] lg:px-[30px] border-[1px]">
+          <div className="col-span-2 px-[10px] lg:px-[30px] border-[1px]">
             <LeftSection activeStep={activeStep} onNextStep={onNextStep} />
           </div>
           <RightSection changeStep={changeStep} activeStep={activeStep} />

@@ -3,31 +3,37 @@ import useStore from "@/app/store/userStore";
 import React, { useEffect, useState } from "react";
 
 const Step1 = ({ onNextStep }) => {
-  const user = useStore((state) => state.user);
-  const userData = user.data.user;
-  const [formData, setFormData] = useState({
-    firstName: userData.firstname || "",
-    lastName: userData.lastname || "",
-    middleName: userData.middlename || "",
-    email: userData.email || "",
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step1,
+    updateFormData: state.updateFormData,
+  }));
+
+  const [localFormData, setLocalFormData] = useState({
+    firstName: formData.firstName || "",
+    lastName: formData.lastName || "",
+    middleName: formData.middleName || "",
+    email: formData.email || "",
+    agree_to_division: formData.agree_to_division || "",
   });
 
   useEffect(() => {
-    setFormData({
-      firstName: userData.firstname || "",
-      lastName: userData.lastname || "",
-      middleName: userData.middlename || "",
-      email: userData.email || "",
-    });
-  }, [user]);
+    setLocalFormData((prev) => ({
+      firstName: formData.firstName || "",
+      lastName: formData.lastName || "",
+      middleName: formData.middleName || "",
+      email: formData.email || "",
+      agree_to_division: formData.agree_to_division || prev.agree_to_division,
+    }));
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setLocalFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSaveAndContinue = (e) => {
     e.preventDefault();
+    updateFormData("step1", localFormData);
     onNextStep();
   };
 
@@ -54,6 +60,7 @@ const Step1 = ({ onNextStep }) => {
             id="yes"
             name="agree_to_division"
             value="yes"
+            checked={localFormData.agree_to_division === "yes"}
             onChange={handleChange}
           />
           <label htmlFor="yes">Yes</label>
@@ -66,6 +73,7 @@ const Step1 = ({ onNextStep }) => {
             id="no"
             name="agree_to_division"
             value="no"
+            checked={localFormData.agree_to_division === "no"}
             onChange={handleChange}
           />
           <label htmlFor="no">No</label>
@@ -81,7 +89,7 @@ const Step1 = ({ onNextStep }) => {
           type="text"
           name="firstName"
           id="firstName"
-          value={formData.firstName}
+          value={localFormData.firstName}
           onChange={handleChange}
           placeholder="First Name"
         />
@@ -97,7 +105,7 @@ const Step1 = ({ onNextStep }) => {
           type="text"
           name="middleName"
           id="middleName"
-          value={formData.middleName}
+          value={localFormData.middleName}
           onChange={handleChange}
           placeholder="Middle Name"
         />
@@ -113,7 +121,7 @@ const Step1 = ({ onNextStep }) => {
           type="text"
           name="lastName"
           id="lastName"
-          value={formData.lastName}
+          value={localFormData.lastName}
           onChange={handleChange}
           placeholder="Last Name"
         />
@@ -129,7 +137,7 @@ const Step1 = ({ onNextStep }) => {
           type="email"
           name="email"
           id="email"
-          value={formData.email}
+          value={localFormData.email}
           onChange={handleChange}
           placeholder="Email Address"
         />

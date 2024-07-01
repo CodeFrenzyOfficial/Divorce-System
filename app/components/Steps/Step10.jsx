@@ -1,11 +1,23 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useStore from "@/app/store/userStore";
 
 const Step10 = ({ onNextStep }) => {
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step10,
+    updateFormData: state.updateFormData,
+  }));
+
   const [moneyOwed, setMoneyOwed] = useState({
-    oweSpouse: "",
-    spouseOweMe: "",
+    oweSpouse: formData.oweSpouse || "",
+    spouseOweMe: formData.spouseOweMe || "",
   });
+
+  useEffect(() => {
+    setMoneyOwed({
+      oweSpouse: formData.oweSpouse || "",
+      spouseOweMe: formData.spouseOweMe || "",
+    });
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,12 +26,17 @@ const Step10 = ({ onNextStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Money Owed Details:", moneyOwed); // Log the chosen options
+    if (!moneyOwed.oweSpouse || !moneyOwed.spouseOweMe) {
+      alert("Please answer all questions regarding money owed.");
+      return;
+    }
+    updateFormData("step10", moneyOwed);
+    console.log("Money Owed Details:", moneyOwed);
     onNextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white shadow rounded-lg">
+    <form onSubmit={handleSubmit} className="p-6 bg-white  rounded-lg">
       <h2 className="text-xl font-semibold mb-5">Money Owed</h2>
       <div className="mb-4">
         <h3 className="font-semibold mb-2">* Do you owe your spouse money?</h3>

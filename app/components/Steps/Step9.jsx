@@ -1,11 +1,25 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useStore from "@/app/store/userStore";
 
 const Step9 = ({ onNextStep }) => {
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step9,
+    updateFormData: state.updateFormData,
+  }));
+
   const [incomeSources, setIncomeSources] = useState({
-    userIncome: "",
-    spouseIncome: "",
+    userIncome: formData.userIncome || "",
+    spouseIncome: formData.spouseIncome || "",
   });
+
+  useEffect(() => {
+    if (formData.step9) {
+      setIncomeSources({
+        userIncome: formData.userIncome || "",
+        spouseIncome: formData.spouseIncome || "",
+      });
+    }
+  }, [formData.step9]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,7 +28,12 @@ const Step9 = ({ onNextStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Income Sources:", incomeSources); // Log the choices
+    if (!incomeSources.userIncome || !incomeSources.spouseIncome) {
+      alert("Please answer all questions regarding income sources.");
+      return;
+    }
+    updateFormData("step9", incomeSources);
+    console.log("Income Sources:", incomeSources);
     onNextStep();
   };
 
@@ -47,17 +66,6 @@ const Step9 = ({ onNextStep }) => {
               className="mr-2"
             />
             No
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="userIncome"
-              value="Not Sure"
-              checked={incomeSources.userIncome === "Not Sure"}
-              onChange={handleChange}
-              className="mr-2"
-            />
-            Not Sure
           </label>
         </div>
 

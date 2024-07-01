@@ -1,8 +1,17 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useStore from "@/app/store/userStore";
 
 const Step8 = ({ onNextStep }) => {
-  const [divisionDebt, setDivisionDebt] = useState("");
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step8,
+    updateFormData: state.updateFormData,
+  }));
+
+  const [divisionDebt, setDivisionDebt] = useState(formData.divisionDebt || "");
+
+  useEffect(() => {
+    setDivisionDebt(formData.divisionDebt || "");
+  }, [formData.divisionDebt]);
 
   const handleChange = (e) => {
     setDivisionDebt(e.target.value);
@@ -10,12 +19,17 @@ const Step8 = ({ onNextStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!divisionDebt) {
+      alert("Please select an option regarding your debt division plan.");
+      return;
+    }
+    updateFormData("step8", { divisionDebt });
     console.log("Debt Division Plan:", divisionDebt);
     onNextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white shadow rounded-lg">
+    <form onSubmit={handleSubmit} className="p-6 bg-white  rounded-lg">
       <h2 className="text-xl font-semibold mb-5">Community Debts</h2>
       <div className="mb-6">
         <h3 className="font-semibold mb-2">

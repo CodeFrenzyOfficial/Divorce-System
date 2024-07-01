@@ -1,20 +1,37 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useStore from "@/app/store/userStore";
 
 const Step4 = ({ onNextStep }) => {
-  const [formData, setFormData] = useState({
-    ownsProperty: "",
-    hasDebts: "",
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step4,
+    updateFormData: state.updateFormData,
+  }));
+
+  const [localFormData, setLocalFormData] = useState({
+    ownsProperty: formData.ownsProperty || "",
+    hasDebts: formData.hasDebts || "",
   });
+
+  useEffect(() => {
+    setLocalFormData({
+      ownsProperty: formData.ownsProperty || "",
+      hasDebts: formData.hasDebts || "",
+    });
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setLocalFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
+    if (!localFormData.ownsProperty || !localFormData.hasDebts) {
+      alert("Please complete all the fields before continuing.");
+      return;
+    }
+    updateFormData("step4", localFormData);
+    console.log("Form Data:", localFormData);
     onNextStep();
   };
 
@@ -34,7 +51,7 @@ const Step4 = ({ onNextStep }) => {
               type="radio"
               name="ownsProperty"
               value="yes"
-              checked={formData.ownsProperty === "yes"}
+              checked={localFormData.ownsProperty === "yes"}
               onChange={handleChange}
               className="mr-2"
             />
@@ -45,7 +62,7 @@ const Step4 = ({ onNextStep }) => {
               type="radio"
               name="ownsProperty"
               value="no"
-              checked={formData.ownsProperty === "no"}
+              checked={localFormData.ownsProperty === "no"}
               onChange={handleChange}
               className="mr-2"
             />
@@ -63,7 +80,7 @@ const Step4 = ({ onNextStep }) => {
               type="radio"
               name="hasDebts"
               value="yes"
-              checked={formData.hasDebts === "yes"}
+              checked={localFormData.hasDebts === "yes"}
               onChange={handleChange}
               className="mr-2"
             />
@@ -74,7 +91,7 @@ const Step4 = ({ onNextStep }) => {
               type="radio"
               name="hasDebts"
               value="no"
-              checked={formData.hasDebts === "no"}
+              checked={localFormData.hasDebts === "no"}
               onChange={handleChange}
               className="mr-2"
             />

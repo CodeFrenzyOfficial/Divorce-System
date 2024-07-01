@@ -1,8 +1,17 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useStore from "@/app/store/userStore";
 
 const Step7 = ({ onNextStep }) => {
-  const [divisionPlan, setDivisionPlan] = useState("");
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step7,
+    updateFormData: state.updateFormData,
+  }));
+
+  const [divisionPlan, setDivisionPlan] = useState(formData.divisionPlan || "");
+
+  useEffect(() => {
+    setDivisionPlan(formData.divisionPlan || "");
+  }, [formData.divisionPlan]);
 
   const handleChange = (e) => {
     setDivisionPlan(e.target.value);
@@ -10,12 +19,17 @@ const Step7 = ({ onNextStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Division Plan:", divisionPlan); // Log the chosen option
+    if (!divisionPlan) {
+      alert("Please select an option regarding your division plan.");
+      return;
+    }
+    updateFormData("step7", { divisionPlan });
+    console.log("Division Plan:", divisionPlan);
     onNextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white shadow rounded-lg">
+    <form onSubmit={handleSubmit} className="p-6 bg-white  rounded-lg">
       <h2 className="text-xl font-semibold mb-5">Community Property</h2>
       <div className="mb-6">
         <h3 className="font-semibold mb-2">

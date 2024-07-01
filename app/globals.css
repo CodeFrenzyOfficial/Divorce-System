@@ -36,7 +36,7 @@
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  z-index: 999;
+  z-index: 10;
 }
 
 .why-us-section {

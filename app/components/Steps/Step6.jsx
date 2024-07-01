@@ -1,8 +1,19 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useStore from "@/app/store/userStore";
 
 const Step6 = ({ onNextStep }) => {
-  const [livingSituation, setLivingSituation] = useState("");
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step6,
+    updateFormData: state.updateFormData,
+  }));
+
+  const [livingSituation, setLivingSituation] = useState(
+    formData.livingSituation || ""
+  );
+
+  useEffect(() => {
+    setLivingSituation(formData.livingSituation || "");
+  }, [formData.livingSituation]);
 
   const handleChange = (e) => {
     setLivingSituation(e.target.value);
@@ -10,12 +21,17 @@ const Step6 = ({ onNextStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Living Situation:", livingSituation); // Log the chosen option
+    if (!livingSituation) {
+      alert("Please select your current living situation.");
+      return;
+    }
+    updateFormData("step6", { livingSituation });
+    console.log("Living Situation:", livingSituation);
     onNextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white shadow rounded-lg">
+    <form onSubmit={handleSubmit} className="p-6 bg-white  rounded-lg">
       <h2 className="text-xl font-semibold mb-5">Current Home</h2>
       <div className="mb-6">
         <h3 className="font-semibold mb-2">

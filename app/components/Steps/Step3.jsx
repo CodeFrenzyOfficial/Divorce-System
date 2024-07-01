@@ -1,25 +1,42 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useStore from "@/app/store/userStore";
 
 const Step3 = ({ onNextStep }) => {
-  const [formData, setFormData] = useState({
-    numberOfChildren: "",
-    isPregnant: "",
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step3,
+    updateFormData: state.updateFormData,
+  }));
+
+  const [localFormData, setLocalFormData] = useState({
+    numberOfChildren: formData.numberOfChildren || "",
+    isPregnant: formData.isPregnant || "",
   });
+
+  useEffect(() => {
+    setLocalFormData({
+      numberOfChildren: formData.numberOfChildren || "",
+      isPregnant: formData.isPregnant || "",
+    });
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setLocalFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData); // This would log the data to the console
-    onNextStep(); // This would move to the next step in the form process
+    if (!localFormData.numberOfChildren || !localFormData.isPregnant) {
+      alert("Please complete all the fields before continuing.");
+      return;
+    }
+    updateFormData("step3", localFormData);
+    console.log("Form Data:", localFormData);
+    onNextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white ">
+    <form onSubmit={handleSubmit} className="p-6 bg-white">
       <div className="mb-6">
         <h3 className="font-semibold mb-2">Children and Pregnancy</h3>
         <label htmlFor="numberOfChildren" className="block font-medium mb-1">
@@ -28,7 +45,7 @@ const Step3 = ({ onNextStep }) => {
         <select
           name="numberOfChildren"
           id="numberOfChildren"
-          value={formData.numberOfChildren}
+          value={localFormData.numberOfChildren}
           onChange={handleChange}
           className="block w-full p-2 border border-gray-300 rounded mb-2"
           required
@@ -60,7 +77,7 @@ const Step3 = ({ onNextStep }) => {
               type="radio"
               name="isPregnant"
               value="yes"
-              checked={formData.isPregnant === "yes"}
+              checked={localFormData.isPregnant === "yes"}
               onChange={handleChange}
               className="mr-2"
             />
@@ -71,7 +88,7 @@ const Step3 = ({ onNextStep }) => {
               type="radio"
               name="isPregnant"
               value="no"
-              checked={formData.isPregnant === "no"}
+              checked={localFormData.isPregnant === "no"}
               onChange={handleChange}
               className="mr-2"
             />
@@ -82,7 +99,7 @@ const Step3 = ({ onNextStep }) => {
               type="radio"
               name="isPregnant"
               value="not sure"
-              checked={formData.isPregnant === "not sure"}
+              checked={localFormData.isPregnant === "not sure"}
               onChange={handleChange}
               className="mr-2"
             />

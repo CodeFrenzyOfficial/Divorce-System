@@ -5,6 +5,8 @@ import useStore from "../store/userStore";
 import axios from "axios";
 const HomeForm = () => {
   const router = useRouter();
+  const updateFormData = useStore((state) => state.updateFormData);
+
   const { setUser } = useStore();
   const [states, setStates] = useState([]);
   const [formData, setFormData] = useState({
@@ -36,8 +38,9 @@ const HomeForm = () => {
       .post("http://localhost:8000/api/auth/checkEligibility", formData, {
         headers: { "Content-Type": "application/json" },
       })
+
       .then((response) => {
-        console.log(response.data);
+        updateFormData("step1", formData);
         setUser(response.data);
         router.push("/step-form");
       })

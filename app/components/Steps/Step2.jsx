@@ -1,20 +1,40 @@
-"use client";
-import React, { useState } from "react";
+import useStore from "@/app/store/userStore";
+import React, { useEffect, useState } from "react";
 
 const Step2 = ({ onNextStep }) => {
-  const [formData, setFormData] = useState({
-    postalCode: "",
-    knowsSpouseLocation: "",
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step2,
+    updateFormData: state.updateFormData,
+  }));
+
+  const [localFormData, setLocalFormData] = useState({
+    postalCode: formData.postalCode || "",
+    knowsSpouseLocation: formData.knowsSpouseLocation || "",
   });
+
+  useEffect(() => {
+    setLocalFormData((prev) => ({
+      postalCode: formData.postalCode || "",
+      knowsSpouseLocation:
+        formData.knowsSpouseLocation || prev.knowsSpouseLocation,
+    }));
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setLocalFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
+    if (!localFormData.postalCode || !localFormData.knowsSpouseLocation) {
+      alert(
+        "Please fill all the fields and select an option for spouse location."
+      );
+      return;
+    }
+    updateFormData("step2", localFormData);
+    console.log("Form Data:", localFormData);
     onNextStep();
   };
 
@@ -36,7 +56,7 @@ const Step2 = ({ onNextStep }) => {
         <input
           type="text"
           name="postalCode"
-          value={formData.postalCode}
+          value={localFormData.postalCode}
           onChange={handleChange}
           className="w-full py-[16px] px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
           placeholder="Enter your ZIP/Postal Code"
@@ -56,7 +76,7 @@ const Step2 = ({ onNextStep }) => {
                 name="knowsSpouseLocation"
                 type="radio"
                 value="yes"
-                checked={formData.knowsSpouseLocation === "yes"}
+                checked={localFormData.knowsSpouseLocation === "yes"}
                 onChange={handleChange}
                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
               />
@@ -73,7 +93,7 @@ const Step2 = ({ onNextStep }) => {
                 name="knowsSpouseLocation"
                 type="radio"
                 value="no"
-                checked={formData.knowsSpouseLocation === "no"}
+                checked={localFormData.knowsSpouseLocation === "no"}
                 onChange={handleChange}
                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
               />

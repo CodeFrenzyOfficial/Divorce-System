@@ -1,8 +1,16 @@
-"use client";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import useStore from "@/app/store/userStore";
 const Step5 = ({ onNextStep }) => {
-  const [petitioner, setPetitioner] = useState("");
+  const { formData, updateFormData } = useStore((state) => ({
+    formData: state.formData.step5,
+    updateFormData: state.updateFormData,
+  }));
+
+  const [petitioner, setPetitioner] = useState(formData.petitioner || "");
+
+  useEffect(() => {
+    setPetitioner(formData.petitioner || "");
+  }, [formData.petitioner]);
 
   const handleChange = (e) => {
     setPetitioner(e.target.value);
@@ -10,12 +18,17 @@ const Step5 = ({ onNextStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Chosen petitioner:", petitioner); // Log the chosen option
+    if (!petitioner) {
+      alert("Please choose who will be the petitioner in this case.");
+      return;
+    }
+    updateFormData("step5", { petitioner });
+    console.log("Chosen petitioner:", petitioner);
     onNextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white shadow rounded-lg">
+    <form onSubmit={handleSubmit} className="p-6 bg-white  rounded-lg">
       <h2 className="text-xl font-semibold mb-5">Provide your case details</h2>
       <div className="mb-6">
         <h3 className="font-semibold mb-2">Filing Party</h3>
