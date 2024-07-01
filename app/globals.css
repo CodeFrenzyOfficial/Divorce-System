@@ -5,6 +5,8 @@
 
 :root {
   background-color: #ffffff;
+  --primary-blue: #4f46e5;
+  --primary-yellow: #eab308;
 }
 
 * {
@@ -31,20 +33,18 @@
 
 
 
-.info ul li:first-child::before {
-
+.active::before {
   content: "";
   position: absolute;
   left: -5px;
   top: 22px;
-  background-color: #106cc8;
-  border: 1px solid #106cc8;
+  background-color: var(--primary-blue);
+  border: 1px solid var(--primary-blue);
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  z-index: 999;
+  z-index: 90;
 }
-
 
 .why-us-section {
   background-image: url('/img/whyus-section-bg.jpg');

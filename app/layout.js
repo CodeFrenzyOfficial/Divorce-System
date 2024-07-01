@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
+import ReduxProvider from "./redux/ReduxProvider";
+import LoadingWrapper from "./wrappers/loadingWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,14 +20,16 @@ const NextProgress = dynamic(() => import("@/app/components/NextProgress"), {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className} suppressHydrationWarning>
         <NextProgress />
-        <Navbar />
-        {children}
-        <div className="p-4">
-          <Footer />
-        </div>
+        <ReduxProvider>
+          <LoadingWrapper>
+            <Navbar />
+            {children}
+            <Footer />
+          </LoadingWrapper>
+        </ReduxProvider>
         <Toaster position="top-center" />
       </body>
     </html>

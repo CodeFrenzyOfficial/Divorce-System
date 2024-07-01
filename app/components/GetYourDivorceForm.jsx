@@ -85,7 +85,7 @@ const GetYourDivorceForm = () => {
           <div className="grid place-items-center">
             <Link
               href={'/'}
-              className="px-20 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md transition-all duration-300 hover:opacity-80 shadow-lg shadow-black/30"
+              className="px-20 py-4 text-lg font-medium text-center text-white bg-primary-blue rounded-md transition-all duration-300 hover:opacity-80 shadow-lg shadow-black/30"
             >
               Learn More
             </Link>
