@@ -6,16 +6,12 @@ import { useState } from "react";
 import { HiBars3BottomRight } from "react-icons/hi2";
 import { RxCross1 } from "react-icons/rx";
 import Button from "./Button";
+import { DrawerDialog } from "./DrawerDialog";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
   const [dropdownIsOpen, setDropdown] = useState(false);
-  const navigation = [
-    { name: "Divorce Services" },
-    { name: "Disclaimer", link: "/disclaimer" },
-    { name: "Contact Us", link: "/contact-us" },
-  ];
-
+  
   return (
     <div
       className="grid sticky top-0 lg:top-3 place-items-center
@@ -45,25 +41,38 @@ const Navbar = () => {
             </button>
 
             <div
-              className={`absolute flex flex-wrap w-full my-5 lg:hidden top-20 bg-black/90 left-0 transition-all duration-300  z-20 ${
+              className={`absolute flex flex-wrap w-full my-5 lg:hidden top-20 bg-black/90 left-0 transition-all duration-300 z-20 ${
                 isOpen
-                  ? "h-72 opacity-100 pointer-events-auto"
+                  ? "h-48 opacity-100 pointer-events-auto"
                   : "h-0 opacity-0 pointer-events-none"
               }`}
             >
-              {navigation.map((item, index) => (
+              {/* Navbar Items */}
+              <>
                 <Link
-                  key={item.link ? item.link : ""}
-                  href="/"
-                  className="w-full px-4 py-2 text-white hover:bg-white hover:text-black transition-all duration-200 text-center"
+                  href="#services"
+                  className="w-full grid place-items-center text-white hover:bg-white hover:text-black transition-all duration-200 text-center"
                 >
-                  {item.name}
+                  Divorce Services
                 </Link>
-              ))}
+
+                <Link
+                  href="/disclaimer"
+                  className="w-full grid place-items-center text-white hover:bg-white hover:text-black transition-all duration-200 text-center"
+                >
+                  Disclaimer
+                </Link>
+                <Link
+                  href="/contact-us"
+                  className="w-full grid place-items-center text-white hover:bg-white hover:text-black transition-all duration-200 text-center"
+                >
+                  Contact Us
+                </Link>
+              </>
 
               <Link
-                href="/"
-                className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5 transition-all duration-200 hover:bg-opacity-80"
+                href="#"
+                className="w-full text-center text-white bg-primary-blue rounded-md lg:ml-5 transition-all duration-200 hover:bg-opacity-80 grid place-items-center"
               >
                 Get Started
               </Link>
@@ -79,31 +88,32 @@ const Navbar = () => {
           </div>
 
           {/* menu  */}
-          <div className="hidden text-center xl:flex lg:items-center">
-            <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex relative">
-              {navigation.map((menu, index) => (
-                <Link
-                  href={menu.link ? menu.link : ""}
-                  className="mr-3"
-                  key={index}
-                  onClick={
-                    menu.name.includes("Divorce Services")
-                      ? () => {
-                          setDropdown(!dropdownIsOpen);
-                        }
-                      : null
-                  }
-                >
-                  <div className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:opacity-70 cursor-pointer transition-all duration-200">
-                    <div className="flex items-center gap-2">
-                      {menu.name}
-                      {menu.name.includes("Divorce Services") && (
-                        <IoMdArrowDropdown className="text-black" />
-                      )}
-                    </div>
+          <div className="hidden text-center xl:flex lg:items-center">            
+            <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex relative">              
+              <div className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:opacity-70 cursor-pointer transition-all duration-200">
+                <div className="flex items-center gap-2">
+                  <div
+                    className="flex items-center gap-2"
+                    onClick={() => setDropdown(!dropdownIsOpen)}
+                  >
+                    Divorce Services
+                    <IoMdArrowDropdown className="text-black" />
                   </div>
-                </Link>
-              ))}
+                </div>
+              </div>
+
+              <Link href={"/disclaimer"}>
+                <div className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:opacity-70 cursor-pointer transition-all duration-200">
+                  <div className="flex items-center gap-2">Disclaimer</div>
+                </div>
+              </Link>
+
+              <Link href={"/contact-us"}>
+                <div className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:opacity-70 cursor-pointer transition-all duration-200">
+                  <div className="flex items-center gap-2">Contact Us</div>
+                </div>
+              </Link>
+
             </ul>
 
             {/* DropDown */}
@@ -113,11 +123,11 @@ const Navbar = () => {
               } bg-black/90 text-white transition-all duration-200 z-20 overflow-hidden flex flex-col`}
             >
               <div className="py-2 w-fulltransition-all duration-200 hover:bg-white hover:text-black cursor-pointer">
-                <Link href={"#steps"}>How It Works</Link>
+                <Link href={"/#steps"}>How It Works</Link>
               </div>
 
               <div className="py-2 w-fulltransition-all duration-200 hover:bg-white hover:text-black cursor-pointer">
-                <Link href={"#whyus"}>Why Us?</Link>
+                <Link href={"/#whyus"}>Why Us?</Link>
               </div>
             </div>
             {dropdownIsOpen && (
@@ -130,7 +140,7 @@ const Navbar = () => {
 
           <div className="flex items-center gap-4">
             <div className="hidden mr-3 space-x-4 lg:flex">
-              <Button innerText={"Login"} link={"/"} />
+              <DrawerDialog />
             </div>
             <div className="hidden mr-3 space-x-4 lg:flex">
               <Button innerText={"Get Started"} link={"/"} />

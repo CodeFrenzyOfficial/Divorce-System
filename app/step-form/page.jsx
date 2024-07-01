@@ -1,150 +1,251 @@
-"use client";
-import React, { useState } from "react";
+"use client"
 
-import { TbDiscountCheckFilled } from "react-icons/tb";
-import { TiTick } from "react-icons/ti";
-import { FaLocationDot } from "react-icons/fa6";
-import { FaPhone } from "react-icons/fa6";
-import { CiGlobe } from "react-icons/ci";
-import Footer from "../components/Footer";
-import LeftSection from "./LeftSection";
-import RightSection from "./RightSection";
+import { useForm } from "react-hook-form";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/app/components/ui/form";
+
+import { RadioGroup, RadioGroupItem } from "@/app/components/ui/radio-group"
+import StepSchema from "@/app/schemas/stepform-schemas/step";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Input } from "@/app/components/ui/input";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import axios from "axios";
+
 
 export default function page() {
-  const [activeStep, setActiveStep] = useState(1);
+  const stepFormQuestions = useSelector(item => item.stepFormQuestions);
+  const dispatch = useDispatch()
+  const { push } = useRouter()
 
-  const onNextStep = () => {
-    setActiveStep((currentStep) => currentStep + 1);
-  };
+  const form = useForm({
+    resolver: yupResolver(StepSchema),
+    defaultValues: {
+      firstname: stepFormQuestions ? stepFormQuestions[0].firstname : "",
+      lastname: stepFormQuestions ? stepFormQuestions[0].lastname : "",
+      email: stepFormQuestions ? stepFormQuestions[0].email : "",
+      agree_to_division: stepFormQuestions ? stepFormQuestions[0].agree_to_division : "",
+    }
+  })
 
-  const changeStep = (step) => {
-    setActiveStep(step);
-  };
+  const onSubmit = async (formdata) => {
+    const finalData = { ...formdata, state: stepFormQuestions[0].state }
+    dispatch({
+      type: "SET_LOADING",
+      payload: true
+    })
+    try {
+      const responsePromise = axios.post(process.env.BASE_URL + '/auth/checkEligibility', finalData);
+
+      responsePromise.then(res => {
+
+        if (res.status === 200) {
+          if (typeof window !== 'undefined') {
+            push("/step-form/steps/1");
+
+            localStorage.removeItem("userData")
+            localStorage.removeItem("userToken")
+
+            localStorage.setItem("userData", JSON.stringify({
+              userData: [
+                finalData
+              ]
+            }))
+            
+            localStorage.setItem("userToken", JSON.stringify(res.data.data.token))
+          }
+        };
+
+        if (res.status === 400) toast.error("Please fill all required fields");
+      }).catch(err => console.log(err))
+
+      toast.promise(responsePromise, {
+        loading: "Wait!",
+        success: "Please provide more information",
+        error: (err) => err.message
+      });
+
+    } catch (error) {
+      console.log(error.message);
+    }
+    finally {
+      dispatch({
+        type: "SET_LOADING",
+        payload: false
+      })
+    }
+  }
 
   return (
-    <>
-      <div className="nav border-b-[1px] md:shadow-none	 shadow-[0_2px_4px_rgba(0,0,0,.200238)] ">
-        <div className="max-w-[1420px] mx-auto py-[20px] ">
-          <img
-            className="mx-auto lg:w-[275px] lg:m-0 "
-            src="/img/logo.webp"
-            alt=""
-          />
-        </div>
-      </div>
-
-      <div className="max-w-[1420px] mx-auto pb-[20px] px-[15px]">
-        <div className="hidden lg:grid grid-cols-4 border-[1px] mt-10 ">
-          <div className="col-span-1 text-center p-[10px] border-r-[1px]">
-            <p className="text-[18px] flex justify-center items-center ">
-              <TiTick className="text-[#3895f2] text-[20px]  lg:text-[30px]" />
-              Step 1: Qualify for divorce
-            </p>
-          </div>
-
-          <div className="col-span-1 text-center p-[10px] border-r-[1px]">
-            <p className=" text-[14px] lg:text-[18px]">
-              Step 2: Provide your details
-            </p>
-          </div>
-
-          <div className="col-span-1 text-center p-[10px] border-r-[1px]">
-            <p className="text-[14px] lg:text-[18px]">
-              Step 3: Get your papers
-            </p>
-          </div>
-
-          <div className="col-span-1 text-center p-[10px]">
-            <p className="text-[14px] lg:text-[18px]">
-              Step 4: File for divorce
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 items-center mt-[20px]">
-          <div className="col-span-2">
-            <h1 className="text-[20px] md:text-[25px] lg:text-[30px] font-normal">
-              Provide your case details
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-[15px] lg:gap-[15px]">
+          <div className="col-span-2 my-[15px]">
+            <h1 className="text-lg font-semibold md:text-[25px] lg:text-[30px]">
+              Information about yourself
             </h1>
-            <p className="text-[14px] md:text-[16px] lg:text-[18px]">
-              Please answer the following questions and then click the "Save &
-              Continue" button
+          </div>
+
+          <div className="col-span-2 lg:col-span-1 my-[15px]">
+            <p className="text-[14px] lg:text-[16px] mr-[10px] ">
+              * Can you and your spouse agree to the division of property,
+              assets and all child related issues?
             </p>
           </div>
 
-          <a href="#">
-            <div className="col-span-1 flex items-center">
-              <TbDiscountCheckFilled className="text-[70px] text-[#3895f2]" />
+          {/* Spouse Agree or not  */}
+          <FormField
+            control={form.control}
+            name="agree_to_division"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                  >
+                    <div className="w-full flex items-center gap-3">
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="yes" />
+                        </FormControl>
+                        <FormLabel className="text-base font-normal cursor-pointer">
+                          Yes
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="no" />
+                        </FormControl>
+                        <FormLabel className="text-base font-normal cursor-pointer">
+                          No
+                        </FormLabel>
+                      </FormItem>
+                    </div>
+                  </RadioGroup>
+                </FormControl>
 
-              <h2 className="text-[18px] md:text-[20px] lg:text-[22px]">
-                Service Satisfaction Guaranteed
-              </h2>
-            </div>
-          </a>
-        </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 mt-[25px] lg:mt-[50px]  gap-[60px]">
-          <div className="col-span-2 px-[10px] lg:px-[30px] border-[1px]">
-            <LeftSection activeStep={activeStep} onNextStep={onNextStep} />
+          <div className="col-span-2 lg:col-span-1">
+            <p className="text-[14px] lg:text-[16px] mr-[20px]">
+              * First Name
+            </p>
           </div>
-          <RightSection changeStep={changeStep} activeStep={activeStep} />
-        </div>
 
-        <div className="nav border-b-[1px] mt-[50px]">
-          <div className=" mx-auto py-[20px]">
-            <img
-              className="mx-auto md:m-0 w-[275px]"
-              src="/img/logo.webp"
-              alt=""
+          {/* First name */}
+          <div className="col-span-2 lg:col-span-1">
+            <FormField
+              control={form.control}
+              name="firstname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="Enter First Name" className="text-base py-2 px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
             />
           </div>
+
+          <div className="col-span-2 lg:col-span-1">
+            <p className="text-[14px] lg:text-[16px] mr-[20px]">
+              * Middle Name
+            </p>
+          </div>
+
+          {/* MiddleName */}
+          <div className="col-span-2 lg:col-span-1">
+            <FormField
+              control={form.control}
+              name="middlename"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="Enter Middle Name" className="text-base py-2 px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="col-span-2 lg:col-span-1">
+            <p className="text-[14px] lg:text-[16px] mr-[20px]">
+              * Last Name
+            </p>
+          </div>
+
+          {/* Last name */}
+          <div className="col-span-2 lg:col-span-1">
+            <FormField
+              control={form.control}
+              name="lastname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="Enter Last Name" className="text-base py-2 px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="col-span-2 lg:col-span-1">
+            <p className="text-[14px] lg:text-[16px] mr-[20px]">
+              * Email Address
+            </p>
+          </div>
+
+          {/* Email */}
+          <div className="col-span-1">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="Enter E-mail" className="text-base py-2 px-[10px] border-[1px] rounded-[5px] outline-none transition-all duration-200 focus:shadow-[0px_0px_8px_rgba(102,175,233,.6)]"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="col-span-2 grid place-items-center">
+            <button type="submit" className="px-6 py-3 text-base font-medium text-center text-white bg-primary-blue rounded-md transition-all duration-300 hover:opacity-80 shadow-lg shadow-gray-600/30">
+              Save & Continue
+            </button>
+          </div>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-4  border-b-[1px] py-[20px] ">
-          <div className="col-span-1 text-start lg:text-center p-[10px] lg:flex justify-center items-center ">
-            <div>
-              <FaLocationDot className=" hidden lg:block text-[#3895f2] mr-[20px] text-[40px]" />
-            </div>
-            <div>
-              {" "}
-              <p className="text-[14px]  text-start  ">
-                Address: OnlineDivorce.com LLC, 200
-              </p>
-              <p className="text-[12px]  text-start  ">
-                {" "}
-                Continental Drive, Suite 401, Newark, DE 19713
-              </p>
-            </div>
-          </div>
-
-          <div className="col-span-1 lg:text-center p-[10px] lg:flex justify-center items-center ">
-            <div>
-              <FaPhone className="hidden lg:block text-[#3895f2] mr-[20px] text-[40px]" />
-            </div>
-            <div>
-              {" "}
-              <p className="text-[14px]  text-start  ">Phone: 1 877 503 0262</p>
-              <p className="text-[14px]  text-start  ">
-                Mon-Fri 10:00AM to 8:00PM EST
-              </p>
-            </div>
-          </div>
-
-          <div className="col-span-1 lg:text-center p-[10px] lg:flex justify-center items-center ">
-            <div>
-              <CiGlobe className="hidden lg:block text-[#3895f2] mr-[20px] text-[40px]" />
-            </div>
-            <div>
-              <p className="text-[14px]  text-start  ">Website:</p>
-              <p className="text-[14px]  text-start  ">OnlineDivorce.com</p>
-            </div>
-          </div>
-
-          <div className="col-span-1 text-center p-[10px] "></div>
-        </div>
-
-        <Footer />
-      </div>
-    </>
+      </form>
+    </Form>
   );
 }
