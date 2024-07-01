@@ -50,42 +50,40 @@ const Step12 = ({ onNextStep }) => {
     <div className="bg-white rounded-lg">
       <div className="py-4">
         <h2 className="text-lg font-semibold mb-2">Account Information</h2>
-        {!userPassword && (
-          <div>
-            <p className="text-sm">
-              Please set your password so that you can access your information
-              at any time.
-            </p>
-            <div className="flex justify-between items-center mt-2">
-              <div className="w-1/2">
-                <span>Password (minimum 5 characters)</span>
-              </div>
-              <div className="w-1/2">
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPasswordLocal(e.target.value)}
-                  placeholder="Required"
-                  className="border-2 border-gray-300 rounded-lg p-2 w-full"
-                />
-              </div>
+        <div>
+          <p className="text-sm">
+            Please set your password so that you can access your information at
+            any time.
+          </p>
+          <div className="flex justify-between items-center mt-2">
+            <div className="w-1/2">
+              <span>Password (minimum 5 characters)</span>
             </div>
-
-            <div className="mt-4 flex justify-center">
-              <button
-                onClick={handlePasswordSubmit}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
-              >
-                Save & Continue
-              </button>
-
-              <PhoneNumberModal
-                isOpen={showPhoneNumberModal}
-                closeModal={() => setShowPhoneNumberModal(false)}
+            <div className="w-1/2">
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPasswordLocal(e.target.value)}
+                placeholder="Required"
+                className="border-2 border-gray-300 rounded-lg p-2 w-full"
               />
             </div>
           </div>
-        )}
+
+          <div className="mt-4 flex justify-center">
+            <button
+              onClick={handlePasswordSubmit}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+            >
+              Save & Continue
+            </button>
+
+            <PhoneNumberModal
+              isOpen={showPhoneNumberModal}
+              closeModal={() => setShowPhoneNumberModal(false)}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="py-4">
