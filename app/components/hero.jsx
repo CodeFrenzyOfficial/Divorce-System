@@ -1,12 +1,11 @@
 import Container from "./container";
-import Link from "next/link";
 import HomeForm from "./HomeForm";
 import Button from "./Button";
 
 const Hero = () => {
   return (
-    <div>
-      <Container className="flex flex-wrap">
+    <div>      
+      <Container className="flex flex-wrap mt-6">
         <div className="flex items-center w-full lg:w-1/2 xl:pl-10">
           <div className="mb-8">
             <h1 className="text-5xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">
@@ -41,7 +40,7 @@ const Hero = () => {
           <div className="flex justify-center items-center mt-10 ">
             {/* 1 */}
             <div className="flex items-center gap-10">
-              <div className="bg-yellow-500 text-white rounded-full w-20 h-20 text-center text-4xl flex justify-center items-center">
+              <div className="bg-primary-yellow text-white rounded-full w-20 h-20 text-center text-4xl flex justify-center items-center">
                 1
               </div>
               <img src="/img/arrow.webp" alt="" className="w-1/2" />
@@ -49,21 +48,21 @@ const Hero = () => {
 
             {/* 2 */}
             <div className="flex items-center gap-10">
-              <div className="bg-yellow-500 text-white rounded-full w-20 h-20 text-center text-4xl flex justify-center items-center">
+              <div className="bg-primary-yellow text-white rounded-full w-20 h-20 text-center text-4xl flex justify-center items-center">
                 2
               </div>
               <img src="/img/arrow.webp" alt="" className="w-1/2" />
             </div>
             {/* 3 */}
             <div className="flex items-center gap-10">
-              <div className="bg-yellow-500 text-white rounded-full w-20 h-20 text-center text-4xl flex justify-center items-center">
+              <div className="bg-primary-yellow text-white rounded-full w-20 h-20 text-center text-4xl flex justify-center items-center">
                 3
               </div>
               <img src="/img/arrow.webp" alt="" className="w-1/2" />
             </div>
             {/* 4 */}
             <div className="flex items-center gap-10">
-              <div className="bg-yellow-500 text-white rounded-full w-20 h-20 text-center text-4xl flex justify-center items-center">
+              <div className="bg-primary-yellow text-white rounded-full w-20 h-20 text-center text-4xl flex justify-center items-center">
                 4
               </div>
             </div>

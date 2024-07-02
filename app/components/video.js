@@ -15,7 +15,7 @@ const Video = () => {
             <button className="absolute inset-auto w-16 h-16 text-white transform -translate-x-1/2 -translate-y-1/2 lg:w-28 lg:h-28 top-1/2 left-1/2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-16 h-16  lg:w-28 lg:h-28"
+                className="w-16 h-16 lg:w-28 lg:h-28"
                 viewBox="0 0 20 20"
                 fill="currentColor">
                 <path
@@ -33,7 +33,7 @@ const Video = () => {
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+              allowFullScreen></iframe>
           )}
         </div>
       </div>

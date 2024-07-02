@@ -1,11 +1,9 @@
 import Head from "next/head";
 
 import Faq from "@/app/components/faq";
-import PopupWidget from "@/app/components/popupWidget";
 import Hero from "@/app/components/hero";
 import GetYourDivorceForm from "@/app/components/GetYourDivorceForm";
 import WhyUs from "@/app/components/WhyUs";
-import Footer from "@/app/components/Footer";
 import CommittmentToCustomers from "@/app/components/CommittmentToCustomers";
 
 export default function Home() {
@@ -21,8 +19,11 @@ export default function Home() {
       </Head>
 
       <Hero />
+
       <GetYourDivorceForm />
+
       <WhyUs />
+      
       <CommittmentToCustomers />
 
       <div className="py-10">
@@ -30,8 +31,6 @@ export default function Home() {
       </div>
 
       <Faq />
-
-      <PopupWidget />
     </>
   );
 }
