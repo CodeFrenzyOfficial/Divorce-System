@@ -3,7 +3,7 @@ import { FaCheck } from "react-icons/fa";
 
 const TileSection = () => {
   return (
-    <div className="mainbanner relative py-6 bg-[#106CC8] flex w-full min-h-[520px] max-h-[520px]">
+    <div className="mainbanner relative py-6 bg-[#106CC8] flex w-full  h-auto  md:min-h-[520px] md:max-h-[520px]">
       <div className="container mx-auto ">
         <div className="max-w-5xl py-5 font-lato w-full mx-auto">
           <div className="flex flex-col-reverse pt-28 md:pt-0 md:flex-row gap-4">
