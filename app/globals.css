@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
 
 :root {
   background-color: #ffffff;
@@ -23,15 +24,12 @@
   position: absolute;
   height: 3px;
   width: 40px;
-  background: url('/img/arrow.webp') no-repeat center right;
+  background: url("/img/arrow.webp") no-repeat center right;
   left: 12px;
   top: 75px;
   transform: rotate(90deg);
   z-index: -1;
-
 }
-
-
 
 .active::before {
   content: "";
@@ -47,12 +45,64 @@
 }
 
 .why-us-section {
-  background-image: url('/img/whyus-section-bg.jpg');
+  background-image: url("/img/whyus-section-bg.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+.mainbanner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 45%;
+  z-index: 2;
+  background: linear-gradient(
+      90deg,
+      #106cc8 2.86%,
+      rgba(16, 108, 200, 0) 50.04%
+    ),
+    url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/ppc_landing/main-banner-v3.975e2074e71d.webp")
+      center / cover no-repeat;
+  background-repeat: no-repeat;
+}
+@media (max-width: 767.98px) {
+  .mainbanner::after {
+    background-image: linear-gradient(
+        360deg,
+        #106cc8 0%,
+        rgba(16, 108, 200, 0) 90%
+      ),
+      url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/ppc_landing/main-banner-v3.975e2074e71d.webp");
+    background-position-y: center;
+
+    height: 40%;
+    width: 100%;
+  }
+}
+
+.mainbanner > * {
+  position: relative;
+  z-index: 5;
+}
+.start-form {
+  color: #222222;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.button-gradient {
+  background: linear-gradient(
+    180deg,
+    #ffb300 0%,
+    #ffa000 87.85%,
+    #ffae00 100%
+  ) !important;
+  box-shadow: 0 2px 2px #c67100 !important;
+}
 .whyus-list-li {
   position: relative;
   left: 20px;
@@ -75,12 +125,45 @@
 }
 
 .disclaimer {
-  background-image: url('../public/img/disclaimer.jpg');
+  background-image: url("../public/img/disclaimer.jpg");
+}
 
+.banner1 {
+  background: #4685cf
+    url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/seo_landing/start-now-1.50372e3aee43.png")
+    center / cover no-repeat;
+  height: 145px;
+  padding: 32px 0 42px 0;
+}
+.banner2 {
+  background: #4685cf
+    url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/seo_landing/start-now-2.feac6b36dd1a.png")
+    center / cover no-repeat;
+  height: 145px;
+  padding: 32px 0 42px 0;
+}
+
+.banner3 {
+  background: #4685cf
+    url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/seo_landing/start-now-3.5e72fb3ce841.png")
+    center / cover no-repeat;
+  height: 145px;
+  padding: 32px 0 42px 0;
+}
+.banner4 {
+  background: url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/seo_landing/start-now-4.298a243e004d.png")
+    center / cover no-repeat;
+  height: 145px;
+  padding: 32px 0 42px 0;
+}
+
+.why-us {
+  background: url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/compare_background.57626fe527fb.jpg")
+    center / cover no-repeat;
 }
 
 .gradient {
-  background: #3E5151;
-  background: -webkit-linear-gradient(to right bottom, #DECBA4, #3E5151);
-  background: linear-gradient(to right bottom, #DECBA4, #3E5151);
+  background: #3e5151;
+  background: -webkit-linear-gradient(to right bottom, #decba4, #3e5151);
+  background: linear-gradient(to right bottom, #decba4, #3e5151);
 }
