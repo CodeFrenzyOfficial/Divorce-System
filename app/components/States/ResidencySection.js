@@ -3,9 +3,7 @@ import React from "react";
 const ResidencySection = () => {
   return (
     <div className="container mx-auto w-full p-4">
-      <h1 className="text-3xl  text-[#666666] text-start font-medium">
-        Residency:
-      </h1>
+      <h1 className="text-5xl  text-start font-medium">Residency:</h1>
       <div className="leading-1 flex flex-col gap-2  text-[#666666]">
         <p className="text-base mt-2">
           Every state has specific requirements where divorcing couples must

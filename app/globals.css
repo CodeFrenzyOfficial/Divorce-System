@@ -128,6 +128,40 @@
   background-image: url("../public/img/disclaimer.jpg");
 }
 
+.banner1 {
+  background: #4685cf
+    url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/seo_landing/start-now-1.50372e3aee43.png")
+    center / cover no-repeat;
+  height: 145px;
+  padding: 32px 0 42px 0;
+}
+.banner2 {
+  background: #4685cf
+    url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/seo_landing/start-now-2.feac6b36dd1a.png")
+    center / cover no-repeat;
+  height: 145px;
+  padding: 32px 0 42px 0;
+}
+
+.banner3 {
+  background: #4685cf
+    url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/seo_landing/start-now-3.5e72fb3ce841.png")
+    center / cover no-repeat;
+  height: 145px;
+  padding: 32px 0 42px 0;
+}
+.banner4 {
+  background: url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/seo_landing/start-now-4.298a243e004d.png")
+    center / cover no-repeat;
+  height: 145px;
+  padding: 32px 0 42px 0;
+}
+
+.why-us {
+  background: url("https://www.onlinedivorce.com/static/multisite/img/multisite/onlinedivorce/redesign/compare_background.57626fe527fb.jpg")
+    center / cover no-repeat;
+}
+
 .gradient {
   background: #3e5151;
   background: -webkit-linear-gradient(to right bottom, #decba4, #3e5151);

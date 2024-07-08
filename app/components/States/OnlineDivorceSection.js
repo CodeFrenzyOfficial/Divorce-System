@@ -3,7 +3,7 @@ import React from "react";
 const OnlineDivorceSection = () => {
   return (
     <div className="container mx-auto w-full p-4 bg-white">
-      <h1 className="text-3xl  text-[#666666] text-center font-bold my-4">
+      <h1 className="text-5xl  text-center font-medium my-4">
         Online Divorce in Alabama
       </h1>
       <div className="flex flex-col md:flex-row gap-3">
